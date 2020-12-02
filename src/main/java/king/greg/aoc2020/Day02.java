@@ -19,9 +19,8 @@ public class Day02 {
           break;
         } else {
           final String[] parts = lineJustFetched.split("-|: | ");
-          //System.out.println(parts[0] + "~" +parts[1] + "~" +parts[2] + "~" +parts[3]);
           final long count = parts[3].chars().filter(ch -> ch == parts[2].charAt(0)).count();
-          if (count >= Integer.parseInt(parts[0]) & count <= Integer.parseInt(parts[1])) {
+          if (count >= Integer.parseInt(parts[0]) && count <= Integer.parseInt(parts[1])) {
             validPasswords++;
           }
         }
