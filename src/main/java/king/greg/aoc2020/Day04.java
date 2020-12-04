@@ -19,7 +19,7 @@ public class Day04 {
   final Set<String> requiredFields = new HashSet<>(Arrays.asList("byr","iyr","eyr","hgt","hcl","ecl","pid"));
   final Pattern patternHgt = Pattern.compile("^(\\d+)(\\D+)$");
   final Pattern patternHcl = Pattern.compile("^[#][0-9|a-f]{6}$");
-  final Pattern patternEcl = Pattern.compile("^amb|blu|brn|gry|grn|hzl|oth$");
+  final Pattern patternEcl = Pattern.compile("^(amb|blu|brn|gry|grn|hzl|oth)$");
   final Pattern patternPid = Pattern.compile("^\\d{9}$");
 
   public Day04(FileReader fileReader) {
@@ -106,7 +106,7 @@ public class Day04 {
       //hgt
       final Matcher matcherHgt = patternHgt.matcher(passport.get("hgt"));
       if(matcherHgt.find()) {
-        int heightValue = Integer.valueOf(matcherHgt.group(1));
+        int heightValue = Integer.parseInt(matcherHgt.group(1));
         switch(matcherHgt.group(2)){
           case "cm":
             if(heightValue < 150 || heightValue > 193) {
