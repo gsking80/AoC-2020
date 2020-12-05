@@ -106,7 +106,7 @@ public class Day04 {
       //hgt
       final Matcher matcherHgt = patternHgt.matcher(passport.get("hgt"));
       if(matcherHgt.find()) {
-        int heightValue = Integer.parseInt(matcherHgt.group(1));
+        int heightValue = Integer.valueOf(matcherHgt.group(1));
         switch(matcherHgt.group(2)){
           case "cm":
             if(heightValue < 150 || heightValue > 193) {
