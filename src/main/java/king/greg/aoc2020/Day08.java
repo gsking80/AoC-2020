@@ -74,7 +74,6 @@ public class Day08 {
       final Set<Integer> runLines = new HashSet<>();
       int accumulator = 0;
       int currentLine = 0;
-      int maxLine = 0;
 
       while (!runLines.contains(currentLine)) {
         runLines.add(currentLine);
@@ -83,9 +82,6 @@ public class Day08 {
           return accumulator;
         } else if (currentLine > program.size()) {
           break;
-        }
-        if (currentLine > maxLine) {
-          maxLine = currentLine;
         }
         final String[] instruction = currentLine == i ? opToChange.split(" ") : program.get(currentLine).split(" ");
         switch (instruction[0]) {
