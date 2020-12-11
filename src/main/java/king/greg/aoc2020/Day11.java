@@ -1,5 +1,6 @@
 package king.greg.aoc2020;
 
+import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -114,33 +115,23 @@ public class Day11 {
 
   long occupiedVisible(final int x, final int y) {
     List<Character> seats = Arrays.asList('.','.','.','.','.','.','.','.');
-    int i = 1;
+    List<Point> multipliers = Arrays.asList(
+        new Point(-1,-1),
+        new Point(0,-1),
+        new Point(1,-1),
+        new Point(1,0),
+        new Point(1,1),
+        new Point(0,1),
+        new Point(-1,1),
+        new Point(-1,0));
+    int multiply = 1;
     while (seats.contains('.')) {
-      if (seats.get(0) == '.') { //UL
-        seats.set(0,seat(x-i,y-i));
+      for (int i = 0; i < 8; i++) {
+        if (seats.get(i).equals('.')) {
+          seats.set(i,seat(x + (multiply * multipliers.get(i).x), y + (multiply * multipliers.get(i).y)));
+        }
       }
-      if (seats.get(1) == '.') { //U
-        seats.set(1,seat(x,y-i));
-      }
-      if (seats.get(2) == '.') { //UR
-        seats.set(2,seat(x+i,y-i));
-      }
-      if (seats.get(3) == '.') { //R
-        seats.set(3,seat(x+i,y));
-      }
-      if (seats.get(4) == '.') { //LR
-        seats.set(4,seat(x+i,y+i));
-      }
-      if (seats.get(5) == '.') { //Lower
-        seats.set(5,seat(x,y+i));
-      }
-      if (seats.get(6) == '.') { //LL
-        seats.set(6,seat(x-i,y+i));
-      }
-      if (seats.get(7) == '.') { //Left
-        seats.set(7,seat(x-i,y));
-      }
-      i++;
+      multiply++;
     }
     return seats.stream().filter(ch -> ch == '#').count();
   }
