@@ -39,8 +39,8 @@ public class Day14 {
   public long initialize(final boolean part2) {
 
     String currentMask = "";
-    for(final String programline: program) {
-      final String[] pieces = programline.split(" = ");
+    for(final String programLine: program) {
+      final String[] pieces = programLine.split(" = ");
       if ("mask".equals(pieces[0])) {
         currentMask = pieces[1];
       } else {
