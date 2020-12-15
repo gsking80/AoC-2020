@@ -7,7 +7,6 @@ import java.util.Map;
 public class Day15 {
 
   final Map<Long, Long> lastTurnSpoken;
-  long lastNumber;
 
   public Day15(final String init) {
     lastTurnSpoken = new HashMap<>();
@@ -16,7 +15,6 @@ public class Day15 {
     for (final String number : numbers) {
       turn++;
       lastTurnSpoken.put(Long.parseLong(number), turn);
-      lastNumber = Long.parseLong(number);
     }
   }
 
