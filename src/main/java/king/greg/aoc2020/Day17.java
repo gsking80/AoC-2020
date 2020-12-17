@@ -37,9 +37,15 @@ public class Day17 {
 
   public void cycle() {
     Set<Point4d> activeCubesNext = new HashSet<>();
-    for (int x = activeCubes.stream().min(Comparator.comparing(a -> a.x)).get().x - 1; x <= activeCubes.stream().max(Comparator.comparing(a -> a.x)).get().x + 1; x++) {
-      for (int y = activeCubes.stream().min(Comparator.comparing(a -> a.y)).get().y - 1; y <= activeCubes.stream().max(Comparator.comparing(a -> a.y)).get().y + 1; y++) {
-        for (int z = activeCubes.stream().min(Comparator.comparing(a -> a.z)).get().z - 1; z <= activeCubes.stream().max(Comparator.comparing(a -> a.z)).get().z + 1; z++) {
+    final int minX = activeCubes.stream().min(Comparator.comparing(a -> a.x)).get().x - 1;
+    final int maxX = activeCubes.stream().max(Comparator.comparing(a -> a.x)).get().x + 1;
+    final int minY = activeCubes.stream().min(Comparator.comparing(a -> a.y)).get().y - 1;
+    final int maxY = activeCubes.stream().max(Comparator.comparing(a -> a.y)).get().y + 1;
+    final int minZ = activeCubes.stream().min(Comparator.comparing(a -> a.z)).get().z - 1;
+    final int maxZ = activeCubes.stream().max(Comparator.comparing(a -> a.z)).get().z + 1;
+    for (int x = minX; x <= maxX; x++) {
+      for (int y = minY; y <= maxY; y++) {
+        for (int z = minZ; z <= maxZ; z++) {
           final Point4d point = new Point4d(x,y,z);
           if (point.activeNext()) {
             activeCubesNext.add(point);
@@ -52,10 +58,18 @@ public class Day17 {
 
   public void cycle4D() {
     Set<Point4d> activeCubesNext = new HashSet<>();
-    for (int x = activeCubes.stream().min(Comparator.comparing(a -> a.x)).get().x - 1; x <= activeCubes.stream().max(Comparator.comparing(a -> a.x)).get().x + 1; x++) {
-      for (int y = activeCubes.stream().min(Comparator.comparing(a -> a.y)).get().y - 1; y <= activeCubes.stream().max(Comparator.comparing(a -> a.y)).get().y + 1; y++) {
-        for (int z = activeCubes.stream().min(Comparator.comparing(a -> a.z)).get().z - 1; z <= activeCubes.stream().max(Comparator.comparing(a -> a.z)).get().z + 1; z++) {
-          for (int w = activeCubes.stream().min(Comparator.comparing(a -> a.w)).get().w - 1; w <= activeCubes.stream().max(Comparator.comparing(a -> a.w)).get().w + 1; w++) {
+    final int minX = activeCubes.stream().min(Comparator.comparing(a -> a.x)).get().x - 1;
+    final int maxX = activeCubes.stream().max(Comparator.comparing(a -> a.x)).get().x + 1;
+    final int minY = activeCubes.stream().min(Comparator.comparing(a -> a.y)).get().y - 1;
+    final int maxY = activeCubes.stream().max(Comparator.comparing(a -> a.y)).get().y + 1;
+    final int minZ = activeCubes.stream().min(Comparator.comparing(a -> a.z)).get().z - 1;
+    final int maxZ = activeCubes.stream().max(Comparator.comparing(a -> a.z)).get().z + 1;
+    final int minW = activeCubes.stream().min(Comparator.comparing(a -> a.w)).get().w - 1;
+    final int maxW = activeCubes.stream().max(Comparator.comparing(a -> a.w)).get().w + 1;
+    for (int x = minX; x <= maxX; x++) {
+      for (int y = minY; y <= maxY; y++) {
+        for (int z = minZ; z <= maxZ; z++) {
+          for (int w = minW; w <= maxW; w++) {
             final Point4d point = new Point4d(x, y, z, w);
             if (point.activeNext()) {
               activeCubesNext.add(point);
