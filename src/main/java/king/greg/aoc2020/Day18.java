@@ -4,30 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import org.apache.commons.lang3.tuple.Pair;
 
 public class Day18 {
 
   final List<String> homework;
-  int index = 0;
-  final boolean part2;
-
-  public Day18() {
-    this(false);
-  }
-
-  public Day18(final boolean part2) {
-    homework = Collections.emptyList();
-    this.part2 = part2;
-  }
 
   public Day18(final FileReader fileReader) {
-    this(fileReader, false);
-  }
-
-  public Day18(final FileReader fileReader, final boolean part1) {
-    this.part2 = part1;
     homework = new ArrayList<>();
     try {
       final BufferedReader buf = new BufferedReader(fileReader);
@@ -45,17 +29,28 @@ public class Day18 {
   }
 
   public long sumAllEquations() {
+    return sumAllEquations(false);
+  }
+  public long sumAllEquations(final boolean part2) {
     long total = 0;
     for (final String equation : homework) {
-      index = 0;
-      total += solveEquation(equation);
+      total += solveEquation(equation, part2);
     }
     return total;
   }
 
-  public Long solveEquation(final String equation) {
+  public static Long solveEquation(final String equation) {
+    return solveEquation(equation, false);
+  }
+
+  public static Long solveEquation(final String equation, final boolean part2) {
+    return solveEquation(equation, 0, part2).getLeft();
+  }
+
+  static Pair<Long, Integer> solveEquation(final String equation, final int startIndex, final boolean part2) {
     Long answer = 0L;
     Long currentNumber = null;
+    int index = startIndex;
     Character currentOperand = null;
     while (index < equation.length()) {
       Character current = equation.charAt(index);
@@ -67,15 +62,17 @@ public class Day18 {
         currentNumber *= 10;
         currentNumber += current - '0';
       } else if (current == '(') {
-        currentNumber = solveEquation(equation);
+        Pair<Long, Integer> result = solveEquation(equation, index, part2);
+        currentNumber = result.getLeft();
+        index = result.getRight();
       } else if (current == '+') {
         currentOperand = current;
       } else if (current == '*') {
         currentOperand = current;
         if(part2) {
-          index++;
-          currentNumber = solveEquation(equation);
-          index--;
+          Pair<Long, Integer> result = solveEquation(equation, index + 1, true);
+          currentNumber = result.getLeft();
+          index = result.getRight() - 1;
         }
       } else if (current.equals(' '))  {
         if (null == currentOperand) {
@@ -88,14 +85,13 @@ public class Day18 {
         }
       }
       else if (current.equals(')')) {
-        return operation(currentOperand, answer, currentNumber);
+        return Pair.of(operation(currentOperand, answer, currentNumber), index);
       }
     }
-    index++; // Make sure we don't go backwards here.
-    return operation(currentOperand, answer, currentNumber);
+    return Pair.of(operation(currentOperand, answer, currentNumber), index + 1);
   }
 
-  Long operation(final Character operation, final Long left, final Long right) {
+  static Long operation(final Character operation, final Long left, final Long right) {
     if (null == operation) {
       return right;
     }
