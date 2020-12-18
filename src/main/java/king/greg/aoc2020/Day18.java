@@ -32,11 +32,7 @@ public class Day18 {
     return sumAllEquations(false);
   }
   public long sumAllEquations(final boolean part2) {
-    long total = 0;
-    for (final String equation : homework) {
-      total += solveEquation(equation, part2);
-    }
-    return total;
+    return homework.stream().mapToLong(equation -> solveEquation(equation, part2)).sum();
   }
 
   public static Long solveEquation(final String equation) {
