@@ -14,12 +14,12 @@ import org.apache.commons.lang3.tuple.Triple;
 
 public class Day24 {
   final List<String> instructions;
-  final List<Triple<Integer,Integer,Integer>> neighbors = new ArrayList<>(List.of(Triple.of(1,1,0),
-                                                                                  Triple.of(1,0,-1),
-                                                                                  Triple.of(0,-1,-1),
-                                                                                  Triple.of(-1,-1,0),
-                                                                                  Triple.of(-1,0,1),
-                                                                                  Triple.of(0,1,1)));
+  static final List<Triple<Integer,Integer,Integer>> neighbors = new ArrayList<>(List.of(Triple.of(1,1,0),
+                                                                                         Triple.of(1,0,-1),
+                                                                                         Triple.of(0,-1,-1),
+                                                                                         Triple.of(-1,-1,0),
+                                                                                         Triple.of(-1,0,1),
+                                                                                         Triple.of(0,1,1)));
 
   public Day24(final FileReader fileReader) {
     instructions = new ArrayList<>();
