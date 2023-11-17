@@ -1,7 +1,5 @@
 package king.greg.aoc2020;
 
-import static org.junit.Assert.*;
-
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import org.assertj.core.api.Assertions;
